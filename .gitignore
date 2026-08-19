@@ -1,0 +1,4 @@
+__pycache__/
+.venv/
+*.pyc
+01_Advanced_Python/01_OOPs/
