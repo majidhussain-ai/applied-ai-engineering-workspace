@@ -1,2 +1,6 @@
-Start from here first do practice with classes and objects then do project this is caps-tone idea for any software devel
+#%%
+user_email = input("Enter the user email: ")
+position = user_email.index("@")
+print(user_email[0 : position])
 
+# %%
