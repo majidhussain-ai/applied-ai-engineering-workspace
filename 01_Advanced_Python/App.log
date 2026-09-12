@@ -1,0 +1,14 @@
+2026-09-11 11:46:52 | INFO | AIPipeline | This is code info message to successfully done this or that work
+2026-09-11 11:46:52 | WARNING | AIPipeline | This is code for warning message to avaid from memory full space
+2026-09-11 11:46:52 | ERROR | AIPipeline | This is code error message to shut down server or db connection erro
+2026-09-11 11:46:52 | CRITICAL | AIPipeline | This is code for critical message to Internet cut off on whole world
+2026-09-11 16:14:11 | INFO | __main__ | This is code info message to successfully done this or that work
+2026-09-11 16:14:11 | WARNING | __main__ | This is code for warning message to avaid from memory full space
+2026-09-11 16:14:11 | ERROR | __main__ | This is code error message to shut down server or db connection erro
+2026-09-11 16:14:11 | CRITICAL | __main__ | This is code for critical message to Internet cut off on whole world
+2026-09-11 16:36:13 | INFO | __main__ | Started Processing Documents...
+2026-09-11 16:36:13 | INFO | __main__ | Total 7 items are started to process.
+2026-09-11 16:38:00 | INFO | __main__ | Started Processing Documents...
+2026-09-11 16:38:00 | INFO | __main__ | Total 7 items are started to process.
+2026-09-11 16:38:41 | INFO | __main__ | Started Processing Documents...
+2026-09-11 16:38:41 | INFO | __main__ | Total 7 items are started to process.
