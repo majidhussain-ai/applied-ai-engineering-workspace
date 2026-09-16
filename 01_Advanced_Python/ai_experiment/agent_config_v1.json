@@ -1,0 +1,10 @@
+{
+  "model_name": "gemini-2.5-pro",
+  "temperature": 0.2,
+  "max_output_tokens": 2048,
+  "system_instruction": "Aap ek professional AI assistant hain. Urdu aur English dono support karein.",
+  "tools_enabled": [
+    "rag_retriever",
+    "code_interpreter"
+  ]
+}

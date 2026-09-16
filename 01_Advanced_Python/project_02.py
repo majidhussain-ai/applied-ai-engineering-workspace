@@ -1,7 +1,6 @@
-#%%
 def clean_text(text):
     """Remove unnecessary whitespace from text."""
-    return text.strip()
+    return text.strip().lower()
 
 
 def normalize_text(text):
@@ -86,3 +85,5 @@ print("Processed Documents:")
 for document in result:
     print(document)
 # %%
+# if __name__ == '__main__':
+    # pass
