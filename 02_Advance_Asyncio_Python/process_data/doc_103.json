@@ -1,0 +1,5 @@
+{
+    "doc_id": "doc_103",
+    "token_count": 12,
+    "raw_text": "Pydantic V2 uses a fast Rust core for strict schema validation."
+}
