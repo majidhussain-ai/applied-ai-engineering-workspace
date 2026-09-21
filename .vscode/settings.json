@@ -1,5 +1,6 @@
 {
     "files.exclude": {
-        "**/01_Advanced_Python": true
+        "**/01_Advanced_Python": true,
+        "**/02_Advance_Asyncio_Python": true
     }
 }
