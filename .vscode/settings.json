@@ -1,6 +1,25 @@
 {
-    "files.exclude": {
-        "**/01_Advanced_Python": true,
-        "**/02_Advance_Asyncio_Python": true
-    }
+  "files.exclude": {
+    "**/01_Advanced_Python": true,
+    "**/02_Advance_Asyncio_Python": true,
+    "**/__pycache__": true
+  },
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/node_modules/**": true,
+    "**/.venv/**": true,
+    "**/__pycache__/**": true
+  },
+  "search.exclude": {
+    "**/.venv": true,
+    "**/__pycache__": true
+  },
+  "python.analysis.indexing": true,
+  "python.analysis.packageIndexDepths": [
+    { "name": "pydantic", "depth": 2 },
+    { "name": "", "depth": 1 }
+  ],
+  "python.analysis.diagnosticMode": "openFilesOnly",
+  "python.analysis.extraPaths": ["."]
 }
