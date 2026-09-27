@@ -2,6 +2,7 @@
   "files.exclude": {
     "**/01_Advanced_Python": true,
     "**/02_Advance_Asyncio_Python": true,
+    "**/03_Pydantic_v2_practice_workshop": true,
     "**/__pycache__": true
   },
   "files.watcherExclude": {
