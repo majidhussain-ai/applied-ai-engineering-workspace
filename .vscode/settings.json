@@ -4,7 +4,7 @@
     "**/02_Advance_Asyncio_Python": true,
     "**/03_Pydantic_v2_practice_workshop": true,
     "**/04_FastAPI_practically_workshop": true,
-    "**/06_PostGre_sql_workshop": true,
+    // "**/06_PostGre_sql_workshop": true,
     "**/__pycache__": true
   },
   "files.watcherExclude": {

@@ -174,6 +174,7 @@ inner JOIN my_post p ON c.post_id = p.id
 GROUP BY p.post_content;
 
 -- Where querying on joining table 
+EXPLAIN analyze
 SELECT 
     u.user_name AS post_creator,
     p.post_content AS original_post,
