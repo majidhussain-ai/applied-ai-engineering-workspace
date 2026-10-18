@@ -1,6 +1,6 @@
 SELECT * from rag_documents;
-
-
+SELECT * FROM document_audit_logs;
+SELECT * FROM 
 -- RRF Hybrid SEARCH 
 SET enable_seqscan = OFF;
 EXPLAIN ANALYZE 

@@ -15,6 +15,15 @@ CREATE TABLE IF NOT EXISTS rag_documents (
     created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TABLE if not EXISTS document_audit_logs(
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    document_id UUID,
+    action TEXT,
+    created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+);
+
+ALTER TABLE rag_documents ADD COLUMN content_hashing TEXT UNIQUE;
+
 -- 4. Indexes for High-Speed Hybrid Search
 -- HNSW Index for Dense Vector Similarity
 CREATE INDEX IF NOT EXISTS rag_documents_hnsw_idx
