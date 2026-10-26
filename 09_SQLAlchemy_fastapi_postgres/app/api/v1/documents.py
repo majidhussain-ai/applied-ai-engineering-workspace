@@ -28,10 +28,7 @@ from app.services.rag_service import (
 
 router = APIRouter(prefix="/documents", tags=["Documents"])
 
-
-# ==========================================
 # Request / Response Schemas for Endpoints
-# ==========================================
 
 class DocumentIngestRequest(BaseModel):
     user_id: uuid.UUID
@@ -46,7 +43,7 @@ class SemanticSearchRequest(BaseModel):
     max_distance: Annotated[float, Field(default=0.55, ge=0.0, le=2.0)]
     metadata_filter: dict[str, Any] | None = None
 
-# NEW: Request schema for real-time RAG Question-Answering
+#  Request schema for real-time RAG Question-Answering
 class RAGQueryRequest(BaseModel):
     question: str = Field(..., min_length=3, max_length=1000)
     top_k: int = Field(default=4, ge=1, le=10)
@@ -67,16 +64,16 @@ class RAGQueryRequest(BaseModel):
         )]
 
 
-# NEW: Response schema showing AI Answer + Retrieved Source Chunks
+# Response schema showing AI Answer + Retrieved Source Chunks
 class RAGQueryResponse(BaseModel):
     question: str
     answer: str
     sources: list[ScoredChunkRead]
 
 
-# ==========================================
+
 # Existing Endpoints
-# ==========================================
+
 
 @router.post("/", response_model=DocumentRead, status_code=status.HTTP_201_CREATED)
 async def ingest_document(payload: DocumentIngestRequest, db: DB_Session):
@@ -126,13 +123,13 @@ async def search_chunks(payload: SemanticSearchRequest, db: DB_Session):
     ]
 
 # ==========================================
-# NEW: Step 11 Real-Time Upload & RAG Endpoints
+#  Real-Time Upload & RAG Endpoints
 # ==========================================
 
 @router.post("/upload", response_model=DocumentRead, status_code=status.HTTP_201_CREATED)
 async def upload_and_ingest_file(
     db: DB_Session,
-    user_id: uuid.UUID = Form(...),
+    user_id: Annotated[uuid.UUID, Form(...)],
     file: UploadFile = File(...),
 ):
     # 1. Verify User Exists

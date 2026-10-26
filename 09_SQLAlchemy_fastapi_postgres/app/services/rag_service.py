@@ -166,19 +166,19 @@ async def generate_rag_answer(query: str, context_chunks: list[str]) -> str:
                 timeout=10.0,
             )
             if response.text:
-                logger.info(f"✅ Answered in seconds using: {model_name}")
+                logger.info(f"Answered in seconds using: {model_name}")
                 return response.text
 
         except TimeoutError as err:
             logger.warning(
-                f"⏱️ '{model_name}' took >10s (stuck in server queue). Instantly switching to next model..."
+                f"'{model_name}' took >10s (stuck in server queue). Instantly switching to next model..."
             )
             last_error = err
             continue
 
         except errors.APIError as err:
             logger.warning(
-                f"⚠️ '{model_name}' failed ({err.code} {err.status}). Instantly switching to next model..."
+                f" '{model_name}' failed ({err.code} {err.status}). Instantly switching to next model..."
             )
             last_error = err
             continue

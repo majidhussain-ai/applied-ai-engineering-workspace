@@ -1,0 +1,114 @@
+{
+  "editor.fontSize": 16,
+  "editor.minimap.enabled": false,
+  "editor.formatOnSave": true,
+  "editor.renderWhitespace": "none",
+  "chat.agent.maxRequests": 100,
+  "files.autoSave": "onFocusChange",
+  "python.createEnvironment.trigger": "off",
+  "workbench.colorTheme": "Tokyo Night Storm",
+  "git-graph.repository.commits.showUncommittedChanges": false,
+  "git-graph.repository.commits.showUntrackedFiles": false,
+  "git-graph.retainContextWhenHidden": true,
+  "git-graph.repository.commits.muteMergeCommits": true,
+  "git-graph.repository.commits.muteCommitsThatAreNotAncestorsOfHead": true,
+  "git-graph.repository.commits.initialLoad": 50,
+  "git-graph.repository.commits.loadMore": 50,
+  "git-graph.repository.commits.loadMoreAutomatically": true,
+  "git-graph.repository.commits.showSignatureStatus": true,
+  "git-graph.repository.sign.commits": true,
+  "git-graph.repository.sign.tags": true,
+  "git-graph.integratedTerminalShell": "",
+  "git-graph.repository.commits.fetchAvatars": true,
+  "git.autofetch": true,
+  "git.enableSmartCommit": true,
+  "git.confirmSync": false,
+  "github.copilot.enable": {
+    "*": false,
+    "plaintext": false,
+    "markdown": false,
+    "scminput": false,
+    "python": false
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "[sql]": {
+    "editor.formatOnSave": false
+  },
+  "python.analysis.typeCheckingMode": "standard",
+  "python.analysis.indexing": false,
+  "python.analysis.extraPaths": [
+    "${workspaceFolder}",
+    "${workspaceFolder}/09_SQLAlchemy_fastapi_postgres",
+    "."
+  ],
+  "jupyter.interactiveWindow.textEditor.executeSelection": true,
+  "notebook.lineNumbers": "on",
+  "notebook.output.scrolling": true,
+  "gitlens.graph.details.location": "auto",
+  "gitlens.gitCommands.skipConfirmations": [
+    "fetch:command",
+    "stash-push:command",
+    "switch:command"
+  ],
+  "pgsql.serverGroups": [
+    {
+      "name": "Servers",
+      "id": "5548CDEC-9C6C-4D81-8E5A-2221F37AF45E",
+      "isDefault": true
+    }
+  ],
+  "pgsql.connections": [
+    {
+      "id": "BACA9AAE-2BDB-4544-BCA9-5B548898AA1B",
+      "groupId": "5548CDEC-9C6C-4D81-8E5A-2221F37AF45E",
+      "authenticationType": "SqlLogin",
+      "connectTimeout": 15,
+      "applicationName": "vscode-pgsql",
+      "clientEncoding": "utf8",
+      "sslmode": "prefer",
+      "savePassword": true,
+      "sslRootCertMode": "none",
+      "server": "localhost",
+      "expiresOn": 0,
+      "emptyPasswordInput": false,
+      "user": "postgres",
+      "password": "",
+      "database": "postgres",
+      "profileName": "local_postgres",
+      "sshPassword": "",
+      "profileSource": 0,
+      "displayName": "local_postgres"
+    }
+  ],
+  "pgsql.openQueryResultsInTabByDefaultDoNotShowPrompt": true,
+  "extensions.autoUpdate": "off",
+  "update.mode": "manual",
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/node_modules/*/**": true,
+    "**/.venv/**": true,
+    "**/__pycache__/**": true,
+    "**/*.zip": true,
+    "**/*.tar.gz": true,
+    "**/*.pt": true,
+    "**/*.safetensors": true,
+    "**/*.bin": true,
+    "**/*.parquet": true
+  },
+  "search.exclude": {
+    "**/.venv": true,
+    "**/build": true,
+    "**/dist": true,
+    "**/*.parquet": true,
+    "**/*.safetensors": true,
+    "**/uv.lock": true
+  },
+  "explorer.confirmDelete": false,
+  "chat.viewSessions.orientation": "stacked",
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  }
+}
