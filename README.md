@@ -1,162 +1,81 @@
-# Async Hybrid RAG Engine — FastAPI, PostgreSQL (`pgvector`), & Gemini
+# 🚀 Applied AI Engineering Workspace — 7-Month Production Stack
 
-![Python](https://img.shields.io/badge/Python-3.12%2B-blue?logo=python&logoColor=white)
-![FastAPI](https://img.shields.io/badge/FastAPI-0.115%2B-009688?logo=fastapi&logoColor=white)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16%20%2B%20pgvector-336791?logo=postgresql&logoColor=white)
-![SQLAlchemy](https://img.shields.io/badge/SQLAlchemy-2.0%20Async-red)
-![Gemini](https://img.shields.io/badge/Google%20GenAI-Gemini%20Models-4285F4?logo=google&logoColor=white)
-![Docker](https://img.shields.io/badge/Docker-Compose-2496ED?logo=docker&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3.12%2B-3776AB?logo=python&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-Async%20APIs-009688?logo=fastapi&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-pgvector%20HNSW-336791?logo=postgresql&logoColor=white)
+![PyTorch](https://img.shields.io/badge/PyTorch-Deep%20Learning-EE4C2C?logo=pytorch&logoColor=white)
+![LangGraph](https://img.shields.io/badge/LangGraph-Multi--Agent-1C3C3C)
+![Docker](https://img.shields.io/badge/Docker-Containerized-2496ED?logo=docker&logoColor=white)
 
-A production-grade, fully asynchronous **Retrieval-Augmented Generation (RAG)** backend engineered with **FastAPI**, **SQLAlchemy 2.0 (`psycopg` v3 async)**, **PostgreSQL (`pgvector`)**, and the **Google GenAI SDK**.
-
-Unlike basic RAG prototypes that rely on in-memory vector stores or pure top-$k$ retrieval, this system implements **Hybrid Search**—combining **HNSW Cosine Vector Similarity**, **Relational Pre-filtering**, **PostgreSQL JSONB GIN Metadata Indexing**, and **Strict Cosine Distance Thresholding**, paired with **Automated Multi-Model Fallback & Latency Guardrails**.
+A structured, code-first **Applied AI Engineering** monorepo documenting a 7-month progression from core asynchronous backend systems to deep learning internals, hybrid vector search architectures, multi-agent orchestration, and containerized production deployment.
 
 ---
 
-## System Architecture & Key Engineering Highlights
+## 🗺️ 7-Month Engineering Architecture & Stack
 
-1. **100% Non-Blocking Async I/O Pipeline:**
-   - End-to-end `async`/`await` architecture from FastAPI route handlers down to PostgreSQL (`psycopg` v3 async driver) and Google GenAI's async client (`client.aio`).
-   - CPU-bound PDF parsing (`pypdf`) offloaded via `asyncio.to_thread` to prevent event-loop blocking.
+### Phase 1: Core Python, Async Concurrency & Data Validation (Month 1)
+* **Core Stack:** Python 3.12+, `asyncio`, `httpx`, Pydantic V2, `pathlib`, Custom Logging & Exceptions.
+* **Key Implementations:**
+  * Object-Oriented Programming (OOP), magic methods, custom decorators, iterators, and memory-efficient generators.
+  * High-concurrency non-blocking I/O pipelines using `asyncio.TaskGroup`, `asyncio.Semaphore`, `asyncio.timeout`, and `asyncio.to_thread` with `httpx.AsyncClient`.
+  * Strict data parsing and payload validation using Pydantic V2 (`BaseModel`, `@field_validator`, `@model_validator`, `TypeAdapter`, and `Annotated`).
 
-2. **Hybrid Vector + Relational + JSONB Retrieval:**
-   - **HNSW Vector Index (`vector_cosine_ops`):** Sub-millisecond Approximate Nearest Neighbor (ANN) search over `1536`-dimensional `gemini-embedding-001` vectors (`m=16`, `ef_construction=64`).
-   - **GIN Metadata Index (`JSONB`):** High-speed metadata containment filtering (`@>` operator) for page-level (`{"page_number": 1}`) or source-level (`{"source": "report.pdf"}`) scoping prior to vector scoring.
-   - **Similarity Threshold Guardrails (`max_distance`):** Filters out noisy/irrelevant chunks at the SQL level (`WHERE (embedding <=> query_vec) <= max_distance`) before invoking the LLM, saving token costs and preventing hallucinations.
+### Phase 2: Backend API Engineering & Relational Databases (Month 1–2)
+* **Core Stack:** FastAPI, SQLAlchemy 2.0 (Async), PostgreSQL, `psycopg` v3, Alembic.
+* **Key Implementations:**
+  * Modular RESTful APIs (`GET`, `POST`, `PATCH`, `DELETE`) with Dependency Injection (`Depends`) and strict Pydantic response contracts.
+  * Asynchronous database architecture with `UUID` primary keys, atomic transactions (`flush` / `commit`), batch `ON CONFLICT` upserts, keyset/offset pagination, and eager loading (`selectinload`) to prevent `MissingGreenlet` N+1 errors.
+  * Database schema versioning and automated migrations with Async Alembic.
 
-3. **Resilient Multi-Model LLM Orchestration:**
-   - Automatic model fallback cascade (`gemini-3.5-flash-lite` $\rightarrow$ `gemini-3.5-flash` $\rightarrow$ `gemini-3.7-flash` $\rightarrow$ `gemini-3.8-flash` $\rightarrow$ `gemma-4-31b-it`).
-   - Enforces a strict per-attempt `asyncio.wait_for` timeout (`10.0s`) to bypass upstream `503 UNAVAILABLE` traffic spikes or `429` rate limits with zero downtime.
+### Phase 3: Deep Learning Internals & Transformer Mechanics (Month 2–3)
+* **Core Stack:** PyTorch, Hugging Face `transformers`, `tokenizers`, NumPy.
+* **Key Implementations:**
+  * Custom `nn.Module` neural network architectures and tensor manipulation.
+  * **PyTorch Forward & Backward Hooks** (`register_forward_hook`) for inspecting internal layer activations, gradients, and representation geometry.
+  * Self-attention mechanics, tokenization pipelines, and high-dimensional embedding space analysis.
 
-4. **Atomic Transactions & N+1 Prevention:**
-   - Uses `session.flush()` to generate parent primary keys in-memory before bulk-inserting child document chunks within a single atomic commit.
-   - Eliminates `MissingGreenlet` lazy-loading errors in async contexts via explicit `selectinload()` eager loading.
+### Phase 4: Production Hybrid RAG & Vector Search (Month 3–4)
+* **Core Stack:** PostgreSQL (`pgvector`), Google GenAI SDK (`gemini-embedding-001` & Gemini Flash/Pro), `pypdf`, Redis.
+* **Key Implementations:**
+  * Real-time `.pdf` and `.txt` multipart ingestion with sliding-window chunking and batch vector embedding generation (`1536` dimensions).
+  * **Hybrid Retrieval Engine:** Combines **HNSW Cosine Distance (`<=>`)**, relational foreign-key scoping (`document_id`), and **JSONB GIN Index (`@>`)** metadata filtering.
+  * **Similarity Threshold Guardrails (`max_distance`):** SQL-level filtering to drop low-relevance noise chunks and return normalized `similarity_score` metrics.
+  * **Resilient LLM Orchestration:** Automated multi-model fallback cascade with strict `asyncio.wait_for` latency protection against `503`/`429` API spikes.
 
----
+### Phase 5: Agentic AI Workflows & Multi-Agent Systems (Month 5)
+* **Core Stack:** LangGraph, LangChain Core, Structured Tool Calling, `AsyncPostgresSaver`.
+* **Key Implementations:**
+  * Stateful, cyclic agent graphs (`StateGraph`) with conditional routing and ReAct reasoning loops.
+  * Persistent memory checkpointing and Human-in-the-Loop (HITL) execution interrupts.
+  * Autonomous multi-agent workflows (e.g., Automated Research & Blog Generation System, AI Trip Planner).
 
-## Project Structure
+### Phase 6: Model Context Protocol (MCP) & Fine-Tuning (Month 6)
+* **Core Stack:** Anthropic MCP SDK, Hugging Face `PEFT` (LoRA / QLoRA), `TRL`, `bitsandbytes`.
+* **Key Implementations:**
+  * Building custom **MCP Servers and Clients** to standardize how LLMs securely query local file systems, PostgreSQL databases, and external APIs.
+  * Parameter-Efficient Fine-Tuning (LoRA/QLoRA) of open-weights models on domain-specific instruction datasets.
 
-```text
-├── alembic/                        # Async Alembic migration environment & revision history
-│   ├── versions/                   # Schema migrations (Users, Documents, Chunks, HNSW & GIN indexes)
-│   └── env.py                      # AsyncEngine migration runner
-├── app/
-│   ├── api/v1/
-│   │   ├── users.py                # User registration & profile retrieval endpoints
-│   │   └── documents.py            # Ingestion (/upload), Hybrid Search (/search), & RAG QA (/ask)
-│   ├── crud/
-│   │   ├── user.py                 # Async User CRUD operations
-│   │   └── document.py             # Atomic document/chunk insertion & Hybrid pgvector queries
-│   ├── models/
-│   │   ├── base.py                 # SQLAlchemy 2.0 DeclarativeBase, UUIDPKMixin, TimestampMixin
-│   │   ├── user.py                 # User ORM model
-│   │   └── document.py             # Document & DocumentChunk ORM models (Vector(1536), JSONB, HNSW, GIN)
-│   ├── schemas/
-│   │   ├── user.py                 # Pydantic V2 User schemas
-│   │   └── document.py             # Pydantic V2 Document, Chunk, & ScoredChunkRead schemas
-│   ├── services/
-│   │   └── rag_service.py          # PDF/TXT extraction, sliding-window chunker, Gemini embeddings & LLM fallback
-│   ├── config.py                   # Pydantic BaseSettings (.env configuration)
-│   ├── database.py                 # AsyncEngine & AsyncSession dependency injection
-│   └── main.py                     # FastAPI application entrypoint
-├── tests/
-│   └── test_rag_api.py             # End-to-end async integration tests (pytest-asyncio + httpx ASGITransport)
-├── Dockerfile                      # Production Python 3.12 container image
-├── docker-compose.yml              # Multi-container orchestration (FastAPI + pgvector/pgvector:pg16)
-├── alembic.ini                     # Alembic configuration
-├── pytest.ini                      # Pytest async loop configuration
-└── requirements.txt                # Project dependencies
-```
+### Phase 7: Testing, Containerization & Cloud MLOps (Month 7)
+* **Core Stack:** `pytest-asyncio`, `httpx` (`ASGITransport`), Docker, Docker Compose, GitHub Actions.
+* **Key Implementations:**
+  * Fast, deterministic async integration testing with mocked LLM/embedding layers.
+  * Multi-container orchestration (`Dockerfile` + `pgvector/pgvector:pg16`) with automated healthchecks (`pg_isready`) and zero-downtime migration startups.
 
 ---
 
-## Getting Started
+## 🛠️ Tech Stack Summary
 
-### Option 1: Run with Docker Compose (Recommended)
-
-1. **Clone the repository:**
-
-   ```bash
-   git clone [https://github.com/](https://github.com/)<your-username>/async-hybrid-rag-pgvector.git
-   cd async-hybrid-rag-pgvector
-   ```
-
-2. **Configure environment variables:**
-   Create a `.env` file in the root directory:
-
-   ```env
-   DATABASE_URL=postgresql+psycopg://postgres:postgres@localhost:5432/rag_db
-   GEMINI_API_KEY=your_google_gemini_api_key_here
-   ```
-
-3. **Build and start the containers:**
-   ```bash
-   docker compose up --build
-   ```
-   _Docker Compose automatically launches `pgvector/pgvector:pg16`, waits for the healthcheck, runs `alembic upgrade head`, and starts the FastAPI server at `http://localhost:8000`._
+| Category | Technologies |
+| :--- | :--- |
+| **Languages & Runtime** | Python 3.12+, SQL, Bash, Linux (Ubuntu LTS) |
+| **Backend & APIs** | FastAPI, Pydantic V2, Uvicorn, `httpx`, `asyncio` |
+| **Databases & Vector Search** | PostgreSQL 16, `pgvector` (HNSW), SQLAlchemy 2.0 (Async), Alembic, JSONB (GIN) |
+| **AI, LLMs & Agents** | Google GenAI SDK (Gemini), LangGraph, Model Context Protocol (MCP), PyTorch, Hugging Face |
+| **DevOps & Testing** | Docker, Docker Compose, `pytest`, `pytest-asyncio`, Git |
 
 ---
 
-### Option 2: Local Setup (Ubuntu / Linux)
-
-1. **Create and activate a virtual environment:**
-
-   ```bash
-   python3 -m venv .venv
-   source .venv/bin/activate
-   pip install -r requirements.txt
-   ```
-
-2. **Ensure PostgreSQL & `pgvector` are running locally, then apply migrations:**
-
-   ```bash
-   alembic upgrade head
-   ```
-
-3. **Start the development server:**
-   ```bash
-   uvicorn app.main:app --reload
-   ```
-   Open Interactive Swagger UI at: **`http://127.0.0.1:8000/docs`**
-
----
-
-## Core API Endpoints
-
-| Method | Endpoint                   | Description                                                                                                        |
-| :----- | :------------------------- | :----------------------------------------------------------------------------------------------------------------- |
-| `POST` | `/api/v1/users/`           | Register a new user and obtain a `user_id` (`UUID`)                                                                |
-| `POST` | `/api/v1/documents/upload` | Upload `.pdf` or `.txt` files $\rightarrow$ auto-chunk $\rightarrow$ batch embed $\rightarrow$ store in `pgvector` |
-| `POST` | `/api/v1/documents/search` | Direct hybrid semantic search returning `distance` and `similarity_score`                                          |
-| `POST` | `/api/v1/documents/ask`    | End-to-end RAG QA with optional `document_id`, `metadata_filter`, and `max_distance`                               |
-
-### Example `/api/v1/documents/ask` Request Payload:
-
-```json
-{
-  "question": "What are the core deliverables in Month 1?",
-  "top_k": 4,
-  "max_distance": 0.55,
-  "document_id": null,
-  "metadata_filter": {
-    "page_number": 1
-  }
-}
-```
-
----
-
-## 🧪 Running Automated Tests
-
-The test suite uses `pytest-asyncio` and `httpx.AsyncClient` (`ASGITransport`) with deterministic LLM/Embedding mocking to validate the full database and vector retrieval pipeline in ~1 second without consuming API quota:
-
-```bash
-pytest -v
-```
-
----
-
-## Author
+## 👨‍💻 Author
 
 **Majid Hussain**  
-_Applied AI & Backend Engineer_
+*Software & Applied AI Engineer*
