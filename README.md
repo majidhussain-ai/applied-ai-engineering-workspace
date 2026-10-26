@@ -79,3 +79,4 @@ A structured, code-first **Applied AI Engineering** monorepo documenting a 7-mon
 
 **Majid Hussain**  
 *Software & Applied AI Engineer*
+*contact: majidhussain.ai5@gmail.com*
