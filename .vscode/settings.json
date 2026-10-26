@@ -5,7 +5,8 @@
     "**/03_Pydantic_v2_practice_workshop": true,
     "**/04_FastAPI_practically_workshop": true,
     "**/06_PostGre_sql_workshop": true,
-    // "**/07_pgVector_inside_postgres_workshop": true,
+    "**/07_pgVector_inside_postgres_workshop": true,
+    // "**/08_psycopg_fastapi_postgre": true,
     "**/__pycache__": true
   },
   "files.watcherExclude": {
@@ -33,5 +34,6 @@
   "python.analysis.diagnosticMode": "openFilesOnly",
   "python.analysis.extraPaths": [
     "."
-  ]
+  ],
+  "python.terminal.useEnvFile": true
 }
